@@ -1,2 +1,2 @@
-# luccaalison.github.io
+# http://luccaalison.github.io
 my personal website
