@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS Flexbox Image Carousel Demo</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet" type="text/css">
+<style>
+body, html { height : 100%; }
+
+html {
+  font-size : 62.5%;
+  box-sizing : border-box;
+}
+
+.photo_slider {
+  position : relative;
+  display : block;
+  overflow : hidden;
+  width : 100%;
+  max-width : 100vw;
+  height : 100vh;
+  max-height : 100%;
+  margin : 0 auto;
+}
+
+.slider {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  z-index: 0;
+  transition: transform 1600ms;
+  transform: scale(1);
+}
+
+/* Slider images */  
+
+
+.slide_img_01 {
+  background : url('../imagens/BOLO.png') no-repeat center;
+  background-size: cover;
+  left: 0;
+}
+
+.slide_img_02 {
+  background : url('../imagens/capuccino.png') no-repeat center;
+  background-size : cover;
+  left: 100%
+}
+
+/* Next and Prev arrow */ 
+
+
+.control {
+  position: absolute;
+  top: 50%;
+  margin-top: -24px;
+  z-index: 55;
+}
+
+.control label svg {
+  width : 48px;
+  height : 48px;
+  fill : #fff;
+  stroke : currentColor;
+  stroke-width : 0;
+}
+
+.control label svg:hover {
+  transition : all .2s ease;
+  fill : #000;
+}
+
+.control label {
+  z-index: 0;
+  display: none;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.control label:hover { opacity: 1.0; }
+
+.next { right: 1%; }
+
+.previous { left: 1%; }
+
+/* Slider Pagger */ 
+
+
+.slider-pagination {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  z-index: 1000;
+}
+
+.slider-pagination label {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  margin: 0 2px;
+  border: solid 1px rgba(255,255,255,0.4);
+  cursor: pointer;
+}
+
+/* Slider Pagger arrow event */
+
+
+.slide-radio1:checked ~ .next .numb2, .slide-radio2:checked ~ .next .numb1, .slide-radio2:checked ~ .previous .numb1, .slide-radio1:checked ~ .previous .numb2 {
+  display: block;
+  z-index: 1
+}
+
+/* Slider Pagger event */
+
+
+.slide-radio1:checked ~ .slider-pagination .page1, .slide-radio2:checked ~ .slider-pagination .page2 { background: rgba(255,255,255,1) }
+
+/* Slide effect */
+
+
+.slide-radio1:checked ~ .slider { transform: translateX(0%); }
+
+.slide-radio2:checked ~ .slider { transform: translateX(-100%); }
+
+/*	Slider Mobile	====================================================================================== */
+
+@media only screen and (max-width: 767px) {
+
+.photo_slider {
+  position : relative;
+  width : 100%;
+  height : 400px;
+}
+
+.slider > div { padding: 0 2% }
+
+.control {
+  position: absolute;
+  top: 60%;
+  margin-top: -24px;
+  z-index: 55;
+}
+
+.control label svg {
+  width : 32px;
+  height : 32px;
+  fill : #fff;
+  stroke : currentColor;
+  stroke-width : 0;
+}
+}
+</style>
+</head>
+
+<body>
+<div class="photo_slider">
+  <input type="radio" name="slider" class="slide-radio1" checked id="slider_1">
+  <input type="radio" name="slider" class="slide-radio2" id="slider_2">
+  <div class="slider-pagination">
+    <label for="slider_1" class="page1"></label>
+    <label for="slider_2" class="page2"></label>
+  </div>
+  <div class="next control">
+    <label for="slider_1" class="numb1"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path d="M298.3 256L131.1 81.9c-4.2-4.3-4.1-11.4.2-15.8l29.9-30.6c4.3-4.4 11.3-4.5 15.5-.2L380.9 248c2.2 2.2 3.2 5.2 3 8.1.1 3-.9 5.9-3 8.1L176.7 476.8c-4.2 4.3-11.2 4.2-15.5-.2L131.3 446c-4.3-4.4-4.4-11.5-.2-15.8L298.3 256z"/>
+      </svg> </label>
+    <label for="slider_2" class="numb2"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path d="M298.3 256L131.1 81.9c-4.2-4.3-4.1-11.4.2-15.8l29.9-30.6c4.3-4.4 11.3-4.5 15.5-.2L380.9 248c2.2 2.2 3.2 5.2 3 8.1.1 3-.9 5.9-3 8.1L176.7 476.8c-4.2 4.3-11.2 4.2-15.5-.2L131.3 446c-4.3-4.4-4.4-11.5-.2-15.8L298.3 256z"/>
+      </svg> </label>
+  </div>
+  <div class="previous control">
+    <label for="slider_1" class="numb1"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path d="M213.7 256L380.9 81.9c4.2-4.3 4.1-11.4-.2-15.8l-29.9-30.6c-4.3-4.4-11.3-4.5-15.5-.2L131.1 247.9c-2.2 2.2-3.2 5.2-3 8.1-.1 3 .9 5.9 3 8.1l204.2 212.7c4.2 4.3 11.2 4.2 15.5-.2l29.9-30.6c4.3-4.4 4.4-11.5.2-15.8L213.7 256z"/>
+      </svg> </label>
+    <label for="slider_2" class="numb2"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path d="M213.7 256L380.9 81.9c4.2-4.3 4.1-11.4-.2-15.8l-29.9-30.6c-4.3-4.4-11.3-4.5-15.5-.2L131.1 247.9c-2.2 2.2-3.2 5.2-3 8.1-.1 3 .9 5.9 3 8.1l204.2 212.7c4.2 4.3 11.2 4.2 15.5-.2l29.9-30.6c4.3-4.4 4.4-11.5.2-15.8L213.7 256z"/>
+      </svg> </label>
+  </div>
+  <div class="slider slide_img_01"></div>
+  <div class="slider slide_img_02"></div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46156385-1', 'cssscript.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
